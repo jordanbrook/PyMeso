@@ -92,7 +92,7 @@ def main(radar, ref_name, vel_name,sweep):
     sweepidx = radar.get_start_end(sweep)
     
     #data quality controls 
-    #dealiase(radar,vel_name)
+    dealiase(radar,vel_name)
     smooth_data(radar,ref_name)
     smooth_data(radar,vel_name)
     
