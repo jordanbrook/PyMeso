@@ -9,23 +9,6 @@ import pyart
 import numpy as np
 import scipy
 
-def dealiase(radar, vel_name):
-    """
-    Dealiase and replace the doppler velocity using pyart's region based method
-    Parameters:
-    ===========
-    radar: struct
-        pyart radar object
-    vel_name: string
-        name of doppler velocity field
-    Returns:
-    ========
-    none
-    """
-    gatefilter = pyart.correct.GateFilter(radar)
-    corr_vel   = pyart.correct.dealias_region_based(
-        radar, vel_field=vel_name, keep_original=False, gatefilter = gatefilter)
-    radar.add_field(vel_name, corr_vel, True)
 
 def smooth_data(radar, data_name):
     """
@@ -92,7 +75,6 @@ def main(radar, ref_name, vel_name, sweep):
     sweepidx = radar.get_start_end(sweep)
     
     #data quality controls 
-    dealiase(radar, vel_name)
     smooth_data(radar, ref_name)
     smooth_data(radar, vel_name)
     
