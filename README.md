@@ -21,4 +21,4 @@ To install in your home directory, use:
 `python setup.py install --user`
 
 ### Use
-`example/PyMesoNotebook.ipynb` provides examples of LLSD retrieval and vortex simulation
+`notebook/PyMesoNotebook.ipynb` provides examples of LLSD retrieval and vortex simulation
