@@ -1,4 +1,4 @@
-#Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International Public License
+# Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International Public License
 
 By exercising the Licensed Rights (defined below), You accept and agree to be bound by the terms and conditions of this 
 Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International Public License ("Public License"). To the extent this
@@ -6,7 +6,7 @@ Public License may be interpreted as a contract, You are granted the Licensed Ri
 these terms and conditions, and the Licensor grants You such rights in consideration of benefits the Licensor receives from 
 making the Licensed Material available under these terms and conditions.
 
-#Section 1 – Definitions.a
+# Section 1 – Definitions
 
 Adapted Material means material subject to Copyright and Similar Rights that is derived from or based upon the Licensed Material 
 and in which the Licensed Material is translated, altered, arranged, transformed, or otherwise modified in a manner requiring 
@@ -31,7 +31,7 @@ Share means to provide material to the public by any means or process that requi
 Sui Generis Database Rights means rights other than copyright resulting from Directive 96/9/EC of the European Parliament and of the Council of 11 March 1996 on the legal protection of databases, as amended and/or succeeded, as well as other essentially equivalent rights anywhere in the world.
 You means the individual or entity exercising the Licensed Rights under this Public License. Your has a corresponding meaning.
 
-#Section 2 – Scope.
+# Section 2 – Scope.
 
 License grant.
 Subject to the terms and conditions of this Public License, the Licensor hereby grants You a worldwide, royalty-free, 
@@ -65,7 +65,7 @@ To the extent possible, the Licensor waives any right to collect royalties from 
 cases the Licensor expressly reserves any right to collect such royalties, including when the Licensed Material is used other than 
 for NonCommercial purposes.
 
-#Section 3 – License Conditions.
+# Section 3 – License Conditions.
 
 Your exercise of the Licensed Rights is expressly made subject to the following conditions.
 
@@ -95,7 +95,7 @@ BY-NC-SA Compatible License.
 You must include the text of, or the URI or hyperlink to, the Adapter's License You apply. You may satisfy this condition in any reasonable manner based on the medium, means, and context in which You Share Adapted Material.
 You may not offer or impose any additional or different terms or conditions on, or apply any Effective Technological Measures to, Adapted Material that restrict exercise of the rights granted under the Adapter's License You apply.
 
-#Section 4 – Sui Generis Database Rights.
+# Section 4 – Sui Generis Database Rights.
 
 Where the Licensed Rights include Sui Generis Database Rights that apply to Your use of the Licensed Material:
 
@@ -107,7 +107,7 @@ for purposes of Section 3(b); and
 You must comply with the conditions in Section 3(a) if You Share all or a substantial portion of the contents of the database.
 For the avoidance of doubt, this Section 4 supplements and does not replace Your obligations under this Public License where the Licensed Rights include other Copyright and Similar Rights.
 
-#Section 5 – Disclaimer of Warranties and Limitation of Liability.
+# Section 5 – Disclaimer of Warranties and Limitation of Liability.
 
 Unless otherwise separately undertaken by the Licensor, to the extent possible, the Licensor offers the Licensed Material as-is 
 and as-available, and makes no representations or warranties of any kind concerning the Licensed Material, whether express, 
@@ -122,7 +122,7 @@ or in part, this limitation may not apply to You.
 The disclaimer of warranties and limitation of liability provided above shall be interpreted in a manner that, to the extent 
 possible, most closely approximates an absolute disclaimer and waiver of all liability.
 
-#Section 6 – Term and Termination.
+# Section 6 – Term and Termination.
 
 This Public License applies for the term of the Copyright and Similar Rights licensed here. However, if You fail to comply 
 with this Public License, then Your rights under this Public License terminate automatically.
@@ -137,13 +137,13 @@ For the avoidance of doubt, the Licensor may also offer the Licensed Material un
 distributing the Licensed Material at any time; however, doing so will not terminate this Public License.
 Sections 1, 5, 6, 7, and 8 survive termination of this Public License.
 
-#Section 7 – Other Terms and Conditions.
+# Section 7 – Other Terms and Conditions.
 
 The Licensor shall not be bound by any additional or different terms or conditions communicated by You unless expressly agreed.
 Any arrangements, understandings, or agreements regarding the Licensed Material not stated herein are separate from and independent 
 of the terms and conditions of this Public License.
 
-#Section 8 – Interpretation.
+# Section 8 – Interpretation.
 
 For the avoidance of doubt, this Public License does not, and shall not be interpreted to, reduce, limit, restrict, or impose 
 conditions on any use of the Licensed Material that could lawfully be made without permission under this Public License.
