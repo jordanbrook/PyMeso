@@ -52,7 +52,7 @@ def ref_mask(ref,shear,threshold,dilution):
     mask = scipy.ndimage.binary_dilation(mask, iterations = dilution).astype(mask.dtype)
     return mask*shear
 
-def main(radar, ref_name, vel_name, sweep):
+def main(radar, ref_name, vel_name):
     """
     Main processing function for LLSD, applies smoothing and masks before calling llsd compute
     Parameters:
