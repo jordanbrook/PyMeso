@@ -1,4 +1,0 @@
-arm_pyart
-numpy
-scipy
-numba
