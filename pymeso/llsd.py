@@ -91,6 +91,9 @@ def main(radar, ref_name, vel_name):
     #call llsd compute function
     azi_shear = lssd_compute(r, theta, vrad, mask, sweep_startidx, sweep_endidx)
     
+    #apply vrad mask to azi_shear
+    azi_shear = np.ma.masked_where(mask, azi_shear)
+    
     #mask according to reflectivity 
     azi_shear = ref_mask(refl_ma, azi_shear, 40, 4)
     
