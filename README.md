@@ -10,6 +10,7 @@ Additionally, a method for simulating rankine vortices has been provided and was
 - [Py-ART](https://github.com/ARM-DOE/pyart/)
 - numpy
 - scipy
+- numba
 
 ### Install
 To install PyMeso, you can either download and unpack the zip file of the source code or use git to checkout the repository:
