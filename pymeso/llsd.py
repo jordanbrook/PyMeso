@@ -6,9 +6,9 @@ Jordan Brook - 3 July 2018
 """
 
 import pyart
+from numba import int64, float64, jit
 import numpy as np
 import scipy
-from numba import int64, float64, jit
 
 def smooth_data(radar, data_name):
     """
@@ -24,7 +24,7 @@ def smooth_data(radar, data_name):
     none
     """
     data           = radar.fields[data_name]['data']
-    smooth_data    = scipy.signal.medfilt2d(data)
+    smooth_data    = scipy.ndimage.filters.median_filter(data, 3)
     smooth_data_ma = np.ma.masked_where(np.ma.getmask(data), smooth_data)
     radar.add_field_like(data_name, 
                      data_name, 
@@ -49,8 +49,8 @@ def ref_mask(ref,shear,threshold,dilution):
     """
     mask = np.zeros(ref.shape)
     mask[ref > threshold] = 1
-    mask = scipy.ndimage.binary_dilation(mask, iterations = dilution).astype(mask.dtype)
-    return mask*shear
+    mask = scipy.ndimage.binary_dilation(mask, iterations = dilution).astype(bool)
+    return np.invert(mask)
 
 def main(radar, ref_name, vel_name):
     """
@@ -69,13 +69,11 @@ def main(radar, ref_name, vel_name):
         azimuthal shear calculated via the linear least squares derivitives method
     """
     
-
     #define the indices for the required sweep
     sweep_startidx = int64(radar.sweep_start_ray_index['data'][:])
     sweep_endidx = int64(radar.sweep_end_ray_index['data'][:])
     
     #data quality controls on entire volume
-    smooth_data(radar, ref_name)
     smooth_data(radar, vel_name)
     
     #extract data
@@ -91,11 +89,12 @@ def main(radar, ref_name, vel_name):
     #call llsd compute function
     azi_shear = lssd_compute(r, theta, vrad, mask, sweep_startidx, sweep_endidx)
     
-    #apply vrad mask to azi_shear
-    azi_shear = np.ma.masked_where(mask, azi_shear)
-    
-    #mask according to reflectivity 
-    azi_shear = ref_mask(refl_ma, azi_shear, 40, 4)
+    #generate mask according to reflectivity 
+    refl_mask = ref_mask(refl_ma, azi_shear, 40, 8)
+    #combine with vrad mask
+    azi_mask  = np.logical_or(refl_mask, mask)
+    # apply combined mask to azi_shear
+    azi_shear = np.ma.masked_where(azi_mask, azi_shear)
     
     #define meta data
     azi_shear_meta = {'data': azi_shear, 'long_name': 'LLSD Azimuthal Shear', 
