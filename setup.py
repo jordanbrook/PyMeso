@@ -17,7 +17,7 @@ AUTHOR = 'Jordan Brook'
 
 # What packages are required for this module to be executed?
 REQUIRED = [
-    "arm_pyart", "numpy", "scipy"
+    "arm_pyart", "numpy", "scipy", "numba"
 ]
 
 # The rest you shouldn't have to touch too much :)
