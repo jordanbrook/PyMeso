@@ -92,7 +92,7 @@ def main(radar, ref_name, vel_name):
     #generate mask according to reflectivity 
     refl_mask = ref_mask(refl_ma, azi_shear, 40, 8)
     #combine with vrad mask
-    azi_mask  = np.logical_or(refl_mask, mask)
+    azi_mask  = np.logical_and(refl_mask, mask)
     # apply combined mask to azi_shear
     azi_shear = np.ma.masked_where(azi_mask, azi_shear)
     
