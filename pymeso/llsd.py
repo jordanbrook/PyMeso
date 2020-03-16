@@ -94,11 +94,16 @@ def main(radar, ref_name, vel_name):
     #combine with vrad mask
     azi_mask  = np.logical_or(refl_mask, mask)
     # apply combined mask to azi_shear
-    azi_shear = np.ma.masked_where(azi_mask, azi_shear)
+    azi_shear = np.ma.masked_where(azi_mask, azi_shear).astype(np.float32)
     
     #define meta data
-    azi_shear_meta = {'data': azi_shear, 'long_name': 'LLSD Azimuthal Shear', 
-                      'standard_name': 'Azimuthal Shear', 'units': 'second$^{-1}$'}
+    azi_shear_meta = {'data': azi_shear,
+                      'long_name': 'LLSD Azimuthal Shear', 
+                      'standard_name': 'azimuthal_shear',
+                      '_FillValue': np.nan,
+                      '_Least_significant_digit': 2,
+                      'comment': 'LLSD azimuthal shear calculation from Miller, M. L., Lakshmanan, V., and Smith, T. M. (2013). An Automated Method for Depicting Mesocyclone Paths and Intensities. Weather and Forecasting, 28(3): 570-585.',
+                      'units': 'second$^{-1}$'}
     #return shear data 
     return azi_shear_meta
 
