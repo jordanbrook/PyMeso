@@ -99,7 +99,6 @@ def main(radar, ref_name, vel_name):
     #define meta data
     azi_shear_meta = {'data': azi_shear,
                       'long_name': 'LLSD Azimuthal Shear', 
-                      'standard_name': 'azimuthal_shear',
                       '_FillValue': np.nan,
                       '_Least_significant_digit': 2,
                       'comment': 'LLSD azimuthal shear calculation from Miller, M. L., Lakshmanan, V., and Smith, T. M. (2013). An Automated Method for Depicting Mesocyclone Paths and Intensities. Weather and Forecasting, 28(3): 570-585.',
