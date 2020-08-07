@@ -30,22 +30,21 @@ def smooth_data(radar, data_name):
                      data_name, 
                      smooth_data_ma, replace_existing = True)
     
-def ref_mask(ref,shear,threshold,dilution):
+def ref_mask(ref,threshold,dilution):
     """
     Mask shear values based on reflectivity and dilate using scipy's dilation tools 
     Parameters:
     ===========
     ref: array
         reflectivity array in radar coordinates
-    shear: array
-        azimuthal shear array in radar coordinates
     threshold: float
         reflecitvity threshold for masking
     dilution: int
         number of dilation pixels, refer to scipy.ndimage.binary_dilation() doc.
     Returns:
     ========
-    masked azimuthal shear field
+    mask
+    
     """
     mask = np.zeros(ref.shape)
     mask[ref > threshold] = 1
@@ -91,7 +90,7 @@ def main(radar, ref_name, vel_name):
     azi_shear = lssd_compute(r, theta, vrad, mask, sweep_startidx, sweep_endidx)
     
     #generate mask according to reflectivity 
-    refl_mask = ref_mask(refl_ma, azi_shear, 40, 8)
+    refl_mask = ref_mask(refl_ma, 40, 8)
     #combine with vrad mask
     azi_mask  = np.logical_or(refl_mask, mask)
     # apply combined mask to azi_shear
@@ -181,6 +180,7 @@ def lssd_compute(r, theta, vrad, mask, sweep_startidx, sweep_endidx):
                 #perform calculations according to Miller et al., (2013)
                 topsum = 0
                 botsum = 0
+                masked = False
                 for ii in ii_range:         
                     for jj in jj_range:
                         dtheta = (theta_tilt[ii, jj] - theta_tilt[i, j])
@@ -191,12 +191,18 @@ def lssd_compute(r, theta, vrad, mask, sweep_startidx, sweep_endidx):
                             dtheta=(theta_tilt[ii, jj]) - (theta_tilt[i, j]-2*np.pi)
                         topsum = topsum + (r_tilt[ii, jj]*dtheta) * vrad_tilt[ii, jj]
                         botsum = botsum + (r_tilt[ii, jj]*dtheta)**2
-                if botsum == 0:
+                        if mask_tilt[ii, jj]:
+                            masked = True
+                
+                if masked:
+                    #exclude regions which contain any masked pixels
+                    azi_shear_tilt[i, j] = np.nan
+                elif botsum == 0:
                     #exclude areas where there is only one point in each grid
                     azi_shear_tilt[i, j] = np.nan
                 else:
                     azi_shear_tilt[i, j] = topsum/botsum
-                    
+
         #insert az shear tilt into volume array
         azi_shear[sweep_startidx[k]:sweep_endidx[k]+1] = azi_shear_tilt
 
