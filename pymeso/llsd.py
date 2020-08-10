@@ -67,7 +67,7 @@ def main(radar, ref_name, vel_name):
     hdr:
         azimuthal shear calculated via the linear least squares derivitives method
     """
-    FILLVALUE = 0
+    FILLVALUE = -9999
     
     #define the indices for the required sweep
     sweep_startidx = int64(radar.sweep_start_ray_index['data'][:])
@@ -82,7 +82,7 @@ def main(radar, ref_name, vel_name):
     theta    = theta*np.pi/180
     refl_ma  = radar.fields[ref_name]['data']
     vrad_ma  = radar.fields[vel_name]['data']
-    vrad     = np.ma.filled(vrad_ma, fill_value=FILLVALUE)
+    vrad     = np.ma.filled(vrad_ma, fill_value=0)
     mask     = np.ma.getmask(vrad_ma)
     r, theta = np.meshgrid(r, theta)
     
@@ -196,10 +196,10 @@ def lssd_compute(r, theta, vrad, mask, sweep_startidx, sweep_endidx):
                 
                 if masked:
                     #exclude regions which contain any masked pixels
-                    azi_shear_tilt[i, j] = np.nan
+                    azi_shear_tilt[i, j] = 0
                 elif botsum == 0:
                     #exclude areas where there is only one point in each grid
-                    azi_shear_tilt[i, j] = np.nan
+                    azi_shear_tilt[i, j] = 0
                 else:
                     azi_shear_tilt[i, j] = topsum/botsum
 
