@@ -68,6 +68,7 @@ def main(radar, ref_name, vel_name):
         azimuthal shear calculated via the linear least squares derivitives method
     """
     FILLVALUE = -9999
+    SCALING = 1000
     
     #define the indices for the required sweep
     sweep_startidx = int64(radar.sweep_start_ray_index['data'][:])
@@ -88,6 +89,8 @@ def main(radar, ref_name, vel_name):
     
     #call llsd compute function
     azi_shear = lssd_compute(r, theta, vrad, mask, sweep_startidx, sweep_endidx)
+    #scale
+    azi_shear = azi_shear*SCALING
     
     #generate mask according to reflectivity 
     refl_mask = ref_mask(refl_ma, 40, 8)
@@ -101,7 +104,7 @@ def main(radar, ref_name, vel_name):
                       'long_name': 'LLSD Azimuthal Shear', 
                       '_FillValue': FILLVALUE,
                       '_Least_significant_digit': 2,
-                      'comment': 'LLSD azimuthal shear calculation from Miller, M. L., Lakshmanan, V., and Smith, T. M. (2013). An Automated Method for Depicting Mesocyclone Paths and Intensities. Weather and Forecasting, 28(3): 570-585.',
+                      'comment': f'Scaled by x{SCALING}. LLSD azimuthal shear calculation from Miller, M. L., Lakshmanan, V., and Smith, T. M. (2013). An Automated Method for Depicting Mesocyclone Paths and Intensities. Weather and Forecasting, 28(3): 570-585.',
                       'units': 'Hz'}
     #return shear data 
     return azi_shear_meta
