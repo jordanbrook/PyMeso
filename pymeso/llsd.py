@@ -196,10 +196,10 @@ def lssd_compute(r, theta, vrad, mask, sweep_startidx, sweep_endidx):
                 
                 if masked:
                     #exclude regions which contain any masked pixels
-                    azi_shear_tilt[i, j] = 0
+                    pass
                 elif botsum == 0:
                     #exclude areas where there is only one point in each grid
-                    azi_shear_tilt[i, j] = 0
+                    pass
                 else:
                     azi_shear_tilt[i, j] = topsum/botsum
 
