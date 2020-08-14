@@ -104,7 +104,7 @@ def main(radar, ref_name, vel_name):
                       'long_name': 'LLSD Azimuthal Shear', 
                       '_FillValue': FILLVALUE,
                       '_Least_significant_digit': 2,
-                      'comment': f'Scaled by x{SCALING}. LLSD azimuthal shear calculation from Miller, M. L., Lakshmanan, V., and Smith, T. M. (2013). An Automated Method for Depicting Mesocyclone Paths and Intensities. Weather and Forecasting, 28(3): 570-585.',
+                      'comment': f'Scaled by x{SCALING}. LLSD azimuthal shear calculation from Miller, M. L., Lakshmanan, V., and Smith, T. M. (2013). An Automated Method for Depicting Mesocyclone Paths and Intensities. Weather and Forecasting, 28(3): 570-585. Effective range of this technique is limited by the window size.',
                       'units': 'Hz'}
     #return shear data 
     return azi_shear_meta
@@ -136,8 +136,8 @@ def lssd_compute(r, theta, vrad, mask, sweep_startidx, sweep_endidx):
     """
     
     #set the constants definining the LLSD grid in the azimuthal and radial directions
-    azi_saxis = 2000 #km
-    rng_saxis = 1  #idx away from i
+    azi_saxis = 2000 #m              #notes: total azimuthal size = 2*azi_saxis
+    rng_saxis = 1  #idx away from i  #notes: total range size = 2*rng_saxis
     
     #init az_shear for the volume
     azi_shear = np.zeros(vrad.shape)
