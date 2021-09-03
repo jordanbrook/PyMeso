@@ -104,7 +104,8 @@ def main(radar, ref_name, vel_name):
                       'long_name': 'LLSD Azimuthal Shear', 
                       '_FillValue': FILLVALUE,
                       '_Least_significant_digit': 2,
-                      'comment': f'Scaled by x{SCALING}. LLSD azimuthal shear calculation from Miller, M. L., Lakshmanan, V., and Smith, T. M. (2013). An Automated Method for Depicting Mesocyclone Paths and Intensities. Weather and Forecasting, 28(3): 570-585. Effective range of this technique is limited by the window size.',
+                      'description': f'LLSD azimuthal shear calculation from Miller et al. (2013) doi:10.1175/WAF-D-12-00065.1',
+                      'comment': f'Scaled by x{SCALING}. Effective range of this technique is limited by the window size.',
                       'units': 'Hz'}
     #return shear data 
     return azi_shear_meta
