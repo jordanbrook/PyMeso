@@ -51,7 +51,7 @@ def ref_mask(ref,threshold,dilution):
     mask = scipy.ndimage.binary_dilation(mask, iterations = dilution).astype(bool)
     return np.invert(mask)
 
-def main(radar, ref_name, vel_name):
+def main(radar, ref_name, vel_name, window_size = (500, 4000)):
     """
     Main processing function for LLSD, applies smoothing and masks before calling llsd compute
     Parameters:
@@ -62,6 +62,8 @@ def main(radar, ref_name, vel_name):
         name of reflecitivty field
     vel_name: string
         name of doppler velocity field
+    window_size: tuple of floats
+        LLSD window size in range and azimuth directions in meters
     Returns:
     ========
     hdr:
@@ -79,6 +81,7 @@ def main(radar, ref_name, vel_name):
     
     #extract data
     r        = radar.range['data']
+    dr       = np.mean(np.diff(np.sort(r)))
     theta    = radar.azimuth['data']
     theta    = theta*np.pi/180
     refl_ma  = radar.fields[ref_name]['data']
@@ -87,8 +90,12 @@ def main(radar, ref_name, vel_name):
     mask     = np.ma.getmask(vrad_ma)
     r, theta = np.meshgrid(r, theta)
     
+    # calculate window size variables
+    azi_saxis = window_size[1] / 2
+    rng_saxis = int(np.round(window_size[0] / (2 * dr)))
+    
     #call llsd compute function
-    azi_shear = lssd_compute(r, theta, vrad, mask, sweep_startidx, sweep_endidx)
+    azi_shear = lssd_compute(r, theta, vrad, mask, sweep_startidx, sweep_endidx, azi_saxis, rng_saxis)
     #scale
     azi_shear = azi_shear*SCALING
     
@@ -112,7 +119,7 @@ def main(radar, ref_name, vel_name):
 
 #compile using jit
 @jit(nopython=True)
-def lssd_compute(r, theta, vrad, mask, sweep_startidx, sweep_endidx):
+def lssd_compute(r, theta, vrad, mask, sweep_startidx, sweep_endidx, azi_saxis, rng_saxis):
     """
     Compute core for llsd, uses numpy only functions and numba jit.
     Parameters:
@@ -129,7 +136,11 @@ def lssd_compute(r, theta, vrad, mask, sweep_startidx, sweep_endidx):
         index of starting rays for tilts
     sweep_endidx: numba int64 array
         index of ending rays for tilts
-                
+    azi_saxis: float
+        Half of the total azimuthal window size in meters
+    rng_saxis: int
+        Half the number of radial indicies within the window size
+        
     Returns:
     ========
     azi_shear:
@@ -137,8 +148,8 @@ def lssd_compute(r, theta, vrad, mask, sweep_startidx, sweep_endidx):
     """
     
     #set the constants definining the LLSD grid in the azimuthal and radial directions
-    azi_saxis = 2000 #m              #notes: total azimuthal size = 2*azi_saxis
-    rng_saxis = 1  #idx away from i  #notes: total range size = 2*rng_saxis
+    #azi_saxis = 2000 #m              #notes: total azimuthal size = 2*azi_saxis
+    #rng_saxis = 1  #idx away from i  #notes: total range size = 2*rng_saxis
     
     #init az_shear for the volume
     azi_shear = np.zeros(vrad.shape)

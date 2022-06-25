@@ -94,8 +94,8 @@ def polar_vortex(beam, gate_size, max_range, pos, radius, vmax, clockwise, noise
     x0, y0 = pos[0], pos[1]
     
     #define radius and angle vectors from input variables
-    r = np.linspace(0, max_range, max_range/gate_size-1)
-    theta = np.linspace(0, 359.9, 360/beam) 
+    r = np.linspace(0, max_range, int(max_range/gate_size-1))
+    theta = np.linspace(0, 359.9, int(360/beam))
     theta = theta * np.pi/180.0
     
     #defining the cartesian grid from input variables
