@@ -93,7 +93,6 @@ def main(radar, ref_name, vel_name, window_size = (500, 4000)):
     # calculate window size variables
     azi_saxis = window_size[1] / 2
     rng_saxis = int(np.round(window_size[0] / (2 * dr)))
-    print(dr, rng_saxis)
     
     #call llsd compute function
     azi_shear = lssd_compute(r, theta, vrad, mask, sweep_startidx, sweep_endidx, azi_saxis, rng_saxis)
