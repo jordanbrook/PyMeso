@@ -24,7 +24,7 @@ def smooth_data(radar, data_name):
     none
     """
     data           = radar.fields[data_name]['data']
-    smooth_data    = scipy.ndimage.filters.median_filter(data, 3)
+    smooth_data    = scipy.ndimage.median_filter(data, 3)
     smooth_data_ma = np.ma.masked_where(np.ma.getmask(data), smooth_data)
     radar.add_field_like(data_name, 
                      data_name, 
